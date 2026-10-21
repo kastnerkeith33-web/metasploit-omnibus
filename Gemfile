@@ -1,12 +1,12 @@
 source 'https://rubygems.org'
 
 # Install omnibus
-# gem 'omnibus', '~> 4.0'
-gem 'omnibus', git: 'https://github.com/rapid7/omnibus', branch: 'r7_9.1.6_custom'
+# Pinned to a commit on the r7_9.1.6_custom branch: a Rapid7 fork of omnibus
+# 9.1.6 that keeps the license_scout pin avoiding the addressable/public_suffix
+# Ruby upgrade. Pinning the commit keeps builds reproducible if the branch moves.
+gem 'omnibus', git: 'https://github.com/rapid7/omnibus', ref: 'd2ce429141668d85e6acab845c164220df1c9bae'
 
-# Use Chef's software definitions. It is recommended that you write your own
-# software definitions, but you can clone/fork Chef's to get you started.
-# gem 'omnibus-software', github: 'opscode/omnibus-software'
+# Software definitions live in config/software, not in the omnibus-software gem.
 
 group :development do
   gem 'pry-byebug'
