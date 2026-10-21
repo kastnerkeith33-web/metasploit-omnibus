@@ -1,7 +1,7 @@
 GIT
   remote: https://github.com/rapid7/omnibus
   revision: d2ce429141668d85e6acab845c164220df1c9bae
-  branch: r7_9.1.6_custom
+  ref: d2ce429141668d85e6acab845c164220df1c9bae
   specs:
     omnibus (9.1.6)
       aws-sdk-s3 (~> 1.116.0)

@@ -108,6 +108,7 @@ jobs:
           curl -L -o metasploit-omnibus/certs/ca-certificates.crt https://curl.haxx.se/ca/cacert.pem
           cat > Dockerfile_temp <<EOF
           FROM ${DOCKER_IMAGE}
+          ENV BUNDLE_FROZEN=true
           RUN ["cross-build-start"]
           COPY metasploit-omnibus /metasploit-omnibus
           COPY metasploit-framework /metasploit-framework
@@ -230,9 +231,9 @@ jobs:
           # If required, change reported architecture in new program environment and set personality flags
           if [ ! -z "${LINUX32}" ] ; then
             echo 'setting linux32'
-            /bin/bash -x -c "docker run --rm --volume $(pwd):$(pwd) --workdir $(pwd) --user jenkins ${DOCKER_IMAGE} linux32 /bin/bash -l -c 'cd metasploit-omnibus && ARCH=x86_64 make'"
+            /bin/bash -x -c "docker run --rm -e BUNDLE_FROZEN=true --volume $(pwd):$(pwd) --workdir $(pwd) --user jenkins ${DOCKER_IMAGE} linux32 /bin/bash -l -c 'cd metasploit-omnibus && ARCH=x86_64 make'"
           else
-            /bin/bash -x -c "docker run --rm --volume $(pwd):$(pwd) --workdir $(pwd) --user jenkins ${DOCKER_IMAGE} /bin/bash -l -c 'cd metasploit-omnibus && make'"
+            /bin/bash -x -c "docker run --rm -e BUNDLE_FROZEN=true --volume $(pwd):$(pwd) --workdir $(pwd) --user jenkins ${DOCKER_IMAGE} /bin/bash -l -c 'cd metasploit-omnibus && make'"
           fi
         env:
           LINUX32: ${{ matrix.docker.linux32 }}
@@ -309,6 +310,7 @@ jobs:
       - name: Setup Ruby
         env:
           BUNDLE_FORCE_RUBY_PLATFORM: true
+          BUNDLE_FROZEN: 'true'
         uses: ruby/setup-ruby@v1
         with:
           ruby-version: ${{ matrix.ruby }}
@@ -317,6 +319,8 @@ jobs:
           working-directory: metasploit-omnibus
 
       - name: Run omnibus
+        env:
+          BUNDLE_FROZEN: 'true'
         run: |
           sudo mkdir -p /var/cache/omnibus
           sudo mkdir -p /opt/metasploit-framework
@@ -444,6 +448,7 @@ jobs:
         shell: cmd
         env:
           MSYSTEM: MINGW64
+          BUNDLE_FROZEN: 'true'
         run: |
           cd metasploit-omnibus
           make dependencies
