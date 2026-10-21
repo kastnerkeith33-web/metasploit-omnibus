@@ -67,7 +67,7 @@ RUN curl -O ftp://ftp.tcl.tk/pub/tcl/tcl8_6/tcl8.6.9-src.tar.gz && \
 
 RUN su jenkins -c "/bin/bash -l -c 'rvm requirements'"
 RUN su jenkins -c "/bin/bash -l -c 'rvm install 3.0.6'"
-RUN su jenkins -c "/bin/bash -l -c 'gem install bundler -v 2.2.3 --no-document'"
+RUN su jenkins -c "/bin/bash -l -c 'gem install bundler -v 2.2.33 --no-document'"
 
 # pre-load the omnibus dependencies
 RUN su jenkins -c "/bin/bash -l -c 'cd ~/ && git clone https://github.com/rapid7/metasploit-omnibus.git && \

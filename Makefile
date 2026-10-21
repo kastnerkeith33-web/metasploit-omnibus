@@ -10,7 +10,7 @@ all: certs/ca-certificates.crt dependencies
 .PHONY: dependencies
 dependencies:
 	# Ensure consistent bundler versions
-	gem install bundler -v 2.2.3
+	gem install bundler -v 2.2.33
 
 	# install omnibus' dependencies
 	bundle install

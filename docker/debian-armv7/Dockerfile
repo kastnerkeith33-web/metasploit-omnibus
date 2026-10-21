@@ -37,7 +37,7 @@ RUN command curl -sSL https://rvm.io/mpapis.asc | gpg --import - && \
     curl -L -sSL https://raw.githubusercontent.com/rvm/rvm/1.29.12/binscripts/rvm-installer | bash -s stable
 RUN /bin/bash -l -c "rvm requirements"
 RUN /bin/bash -l -c "rvm install 3.0.6"
-RUN /bin/bash -l -c "gem install bundler -v 2.2.4 --no-document"
+RUN /bin/bash -l -c "gem install bundler -v 2.2.33 --no-document"
 
 # pre-load the omnibus dependencies
 RUN git clone https://github.com/rapid7/metasploit-omnibus.git
